@@ -1,0 +1,79 @@
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:testgeo/model/product_model.dart';
+import 'package:testgeo/services/product_service.dart';
+
+class ProductController extends GetxController {
+  var productList = <ProductModels>[].obs;
+  var favoriteList = <ProductModels>[].obs;
+
+  var isLoading = true.obs;
+
+  var storage = GetStorage();
+
+  //search
+
+  var searchList = <ProductModels>[].obs;
+  TextEditingController searchTextController = TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    getProducts();
+    List? favItems = storage.read<List>("isFavoriteList");
+    if (favItems != null) {
+      favoriteList =
+          favItems.map((e) => ProductModels.fromJson(e)).toList().obs;
+    }
+  }
+
+  getProducts() async {
+    var products = await ProductServices.getProduct();
+    try {
+      if (products.isNotEmpty) {
+        isLoading(true);
+        productList.addAll(products);
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  //logic for favorite screen
+
+  void manageFavorite(productId) async {
+    var existingIndex =
+        favoriteList.indexWhere((element) => element.id == productId);
+    if (existingIndex >= 0) {
+      favoriteList.removeAt(existingIndex);
+      await storage.remove("isFavoriteList");
+    } else {
+      favoriteList
+          .add(productList.firstWhere((element) => element.id == productId));
+      await storage.write("isFavoriteList", favoriteList);
+    }
+  }
+
+  bool isFavorite(int productId) {
+    return favoriteList.any((element) => element.id == productId);
+  }
+
+  void addSearchToList(String searchName) {
+    searchName = searchName.toLowerCase();
+    searchList.value = productList.where((search) {
+      var searchTitle = search.title.toLowerCase();
+      var searchPrice = search.price.toString().toLowerCase();
+
+      return searchTitle.contains(searchName) ||
+          searchPrice.toString().contains(searchName);
+    }).toList();
+
+    update();
+  }
+
+  void clearSearch() {
+    searchTextController.clear();
+    addSearchToList("");
+  }
+}

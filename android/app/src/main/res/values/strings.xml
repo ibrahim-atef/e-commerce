@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ichiraco</string>
+
+
+    <string name="facebook_app_id">1014740759253484</string>
+    <string name="fb_login_protocol_scheme">fb1014740759253484</string>
+    <color name="com_facebook_button_background_color_focused_disabled">#3C5A99</color>
+    <color name="com_facebook_button_background_color_focused">#3C5A99</color>
+    <color name="com_facebook_button_border_color_focused">#3C5A99</color>
+</resources>
