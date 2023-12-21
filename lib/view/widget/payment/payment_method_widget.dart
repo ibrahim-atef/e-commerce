@@ -6,7 +6,7 @@ import 'package:testgeo/logic/controlles/auth_controller.dart';
 import 'package:testgeo/logic/controlles/cart_controller.dart';
 import 'package:testgeo/logic/controlles/payment_controller.dart';
 
- import 'package:testgeo/utils/theme.dart';
+import 'package:testgeo/utils/theme.dart';
 
 import '../text_utils.dart';
 
@@ -21,24 +21,40 @@ class _PayMentMethodWidgetState extends State<PayMentMethodWidget> {
   final payMentController = Get.find<PayMentController>();
   final cartController = Get.find<CartController>();
   final authController = Get.find<AuthController>();
-  int radioPaymentIndex = 1;
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
         children: [
+          // GetBuilder<PayMentController>(
+          //   builder: (_) => buildRadioPayment(
+          //     name: "Paypal",
+          //     image: 'assets/images/paypal.png',
+          //     scale: 0.7,
+          //     value: 1,
+          //     onChange: (int? value) {
+          //       setState(() {
+          //         radioPaymentIndex = value!;
+          //       });
+          //       payMentController.removeGooglePay();
+          //     },
+          //   ),
+          // ),
+          // const SizedBox(
+          //   height: 15,
+          // ),
           GetBuilder<PayMentController>(
             builder: (_) => buildRadioPayment(
-              name: "Paypal",
-              image: 'assets/images/paypal.png',
-              scale: 0.7,
+              name: "ref Code",
+              image: 'assets/images/machine.jpg',
+              scale: 0.5,
               value: 1,
               onChange: (int? value) {
-                setState(() {
-                  radioPaymentIndex = value!;
-                });
-                payMentController.removeGooglePay();
+               payMentController.payWithRef();
+
               },
             ),
           ),
@@ -47,35 +63,13 @@ class _PayMentMethodWidgetState extends State<PayMentMethodWidget> {
           ),
           GetBuilder<PayMentController>(
             builder: (_) => buildRadioPayment(
-              name: "Google Pay",
-              image: 'assets/images/google.png',
-              scale: 0.8,
-              value: 2,
-              onChange: (int? value) {
-                setState(() {
-                  radioPaymentIndex = value!;
-                });
-                payMentController.makeGooglePay(
-                  amount: cartController.total.toString(),
-                  label: authController.displayUserName.value,
-                );
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          GetBuilder<PayMentController>(
-            builder: (_) => buildRadioPayment(
-              name: "Credit Card",
+              name: "PayMob Card ",
               image: 'assets/images/credit.png',
               scale: 0.7,
-              value: 3,
+              value: 2,
               onChange: (int? value) {
-                setState(() {
-                  radioPaymentIndex = value!;
-                });
-                payMentController.removeGooglePay();
+            payMentController.payWithCard();
+
               },
             ),
           ),
@@ -92,18 +86,23 @@ class _PayMentMethodWidgetState extends State<PayMentMethodWidget> {
     required Function onChange,
   }) {
     return Container(
-      height: 50,
+      height: 50,padding: EdgeInsets.all(8),
       width: double.infinity,
-      color: Colors.grey[300],
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 image,
                 scale: scale,
+                height: 35,
               ),
               const SizedBox(
                 width: 10,
@@ -119,7 +118,7 @@ class _PayMentMethodWidgetState extends State<PayMentMethodWidget> {
           ),
           Radio(
             value: value,
-            groupValue: radioPaymentIndex,
+            groupValue: payMentController.radioPaymentIndex,
             fillColor: MaterialStateColor.resolveWith((states) => mainColor),
             onChanged: (int? value) {
               onChange(value);

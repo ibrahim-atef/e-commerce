@@ -42,9 +42,11 @@ dependencies:
   get_storage: ^2.0.3
   google_fonts:
   http:
-  geolocator: ^8.0.1
+  geolocator: ^10.1.0
   geocoding: ^2.0.1
   pay: ^1.0.6
+  webview_flutter: ^3.0.4
+
 
 
 

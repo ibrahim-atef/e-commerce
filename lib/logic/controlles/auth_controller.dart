@@ -24,12 +24,17 @@ class AuthController extends GetxController {
   User? get userProffile => auth.currentUser;
 
   @override
-  void onInit() {
+  void onInit()async {
+    await userProffile ;
     displayUserName.value =
         (userProffile != null ? userProffile!.displayName : "")!;
-    displayUserPhoto.value =
-        (userProffile != null ? userProffile!.photoURL : "")!;
-    displayUserEmail.value = (userProffile != null ? userProffile!.email : "")!;
+    if (userProffile != null) {
+      displayUserPhoto.value =
+      (userProffile!.photoURL?.isEmpty ?? true
+          ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxt408D_lR8JFaCm0CYhDrEtXjWL8wIsdNSEs4NcFzvNposF4S20Tv1WRkrMzgxUa9uBY&usqp=CAU"
+          : userProffile!.photoURL!) ;
+    }
+  displayUserEmail.value = (userProffile != null ? userProffile!.email : "")!;
 
     super.onInit();
   }
@@ -55,6 +60,12 @@ class AuthController extends GetxController {
           .then((value) {
         displayUserName.value = name;
         auth.currentUser!.updateDisplayName(name);
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+          verificationId: 'YOUR_VERIFICATION_ID', // Use the verification ID you received during the phone number verification
+          smsCode: '111111', // Use the SMS code entered by the user
+        );
+
+        auth.currentUser!.updatePhoneNumber(phoneAuthCredential);
       });
 
       update();
@@ -74,6 +85,7 @@ class AuthController extends GetxController {
       } else {
         message = error.message.toString();
       }
+      print("---------$message-----------------");
 
       Get.defaultDialog(
           title: title,

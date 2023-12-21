@@ -4,7 +4,7 @@ import 'package:testgeo/utils/my_string.dart';
 
 class ProductServices {
   static Future<List<ProductModels>> getProduct() async {
-    var response = await http.get(Uri.parse("$baseUrl/products"));
+    var response = await http.get(Uri.parse("$baseUrl/products"),);
     if (response.statusCode == 200) {
       var jsonData = response.body;
       return ProductModelsFromJson(jsonData);

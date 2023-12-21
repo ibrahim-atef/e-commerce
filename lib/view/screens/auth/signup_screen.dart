@@ -15,6 +15,7 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   final controller = Get.find<AuthController>();
 
@@ -142,6 +143,29 @@ class SignUpScreen extends StatelessWidget {
                             height: height * .03,
                           ),
                           AuthTextFormField(
+                              controller: phoneController,
+                              obscureText: false,
+                              validator: (value) {
+                                String phoneNumber = value.trim();
+
+                                // Define a regular expression for a valid phone number format
+                                RegExp phoneRegExp = RegExp(r'^[0-9]{10}$'); // Assuming a 10-digit phone number
+
+                                if (phoneNumber.isEmpty) {
+                                  return 'Phone number is required';
+                                } else if (!phoneRegExp.hasMatch(phoneNumber)) {
+                                  return 'Enter a valid 10-digit phone number';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              prefixIcon: Icon(Icons.phone,color: Color(0xffcc6213),),
+                              suffixIcon: Text(""),
+                              hintText: "Phone number"),
+                          SizedBox(
+                            height: height * .03,
+                          ),
+                          AuthTextFormField(
                               controller: emailController,
                               obscureText: false,
                               validator: (value) {
@@ -228,6 +252,8 @@ class SignUpScreen extends StatelessWidget {
                                                 emailController.text.trim();
                                             String password =
                                                 passController.text;
+                                            String phoneNumber = phoneController.text.trim();
+
                                             controller.signUpUsingFirebase(
                                                 name: name,
                                                 email: email,

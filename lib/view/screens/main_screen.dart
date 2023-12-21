@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart'as badges;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:testgeo/logic/controlles/cart_controller.dart';
@@ -26,10 +26,10 @@ class MainScreen extends StatelessWidget {
           centerTitle: true,
           actions: [
             Obx(() {
-              return Badge(
-                position: BadgePosition.topEnd(top: 0, end: 3),
-                animationDuration: Duration(milliseconds: 300),
-                animationType: BadgeAnimationType.slide,
+              return badges.Badge(
+                position: badges.BadgePosition.topEnd(top: 0, end: 3),
+                // animationDuration: Duration(milliseconds: 300),
+                // animationType: badges.BadgeAnimationType.slide,
                 badgeContent: Text(
                   "${cartController.quantity().toString()}",
                   style: TextStyle(color: Colors.white),

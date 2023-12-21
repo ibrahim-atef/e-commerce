@@ -16,4 +16,18 @@ String ara = 'ar';
 String ene = 'en';
 String frf = 'fr';
 
-
+// paymob constants
+//
+// String paymobApiKey =
+//     "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RRM05qYzVMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkubzdLTTI5eXkwdGppTVNxcDFubTJVVVNPVC1Ya0U3UnVIOGdQMDBiXzlUdm1YNWhVMWJSLURDeWVVQ29SdmFfYU44QUdVUDUtSm5oWEMyUE1BMVdkTGc=";
+//
+// String paymobFirstToken = "";
+// String orderId = "";
+//
+// String finalTokenCard = "";
+// String finalTokenKiosk = "";
+//
+// String integrationIdCard = "4420120";
+// String integrationIdKiosk = "4420127";
+//
+// String refCode = "";

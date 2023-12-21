@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -163,10 +163,10 @@ class _ImageSliderState extends State<ImageSlider> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 2,right: 2),
                       child:    Obx(() {
-                        return Badge(
-                          position: BadgePosition.topEnd(top: -10, end: -10),
-                          animationDuration: Duration(milliseconds: 300),
-                          animationType: BadgeAnimationType.slide,
+                        return badges.Badge(
+                          position: badges.BadgePosition.topEnd(top: -10, end: -10),
+                          // animationDuration: Duration(milliseconds: 300),
+                          // animationType: badges.BadgeAnimationType.slide,
                           badgeContent: Text(
                             "${cartController.quantity().toString()}",
                             style: TextStyle(color: Colors.white),

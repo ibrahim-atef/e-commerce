@@ -24,24 +24,24 @@ class _DeliveryContinerWidgetState extends State<DeliveryContinerWidget> {
   final authController = Get.find<AuthController>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  controller.updatePosition();
     return Column(
       children: [
-        buildRadioContiner(
-          address: "Egypt,zagzig",
-          name: "Your store",
-          phone: "51-887-9932",
-          title: "Your Shop",
-          value: 1,
-          color: changeColors ? Colors.white : Colors.grey.shade300,
-          icon: Container(),
-          onChanged: (int? value) {
-            setState(() {
-              radioContinerIndes = value!;
-              changeColors = !changeColors;
-            });
-          },
-        ),
+        // buildRadioContiner(
+        //   address: "Egypt,zagzig",
+        //   name: "OPEN Store",
+        //   phone: "51-887-9932",
+        //   title: "OPEN Store",
+        //   value: 1,
+        //   color: changeColors ? Colors.white : Colors.grey.shade300,
+        //   icon: Container(),
+        //   onChanged: (int? value) {
+        //     setState(() {
+        //       radioContinerIndes = value!;
+        //       changeColors = !changeColors;
+        //     });
+        //   },
+        // ),
         const SizedBox(
           height: 10,
         ),
@@ -159,7 +159,7 @@ class _DeliveryContinerWidgetState extends State<DeliveryContinerWidget> {
     required Widget icon,
   }) {
     return Container(
-      height: 120,
+      padding: EdgeInsets.symmetric(vertical: 10),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -176,14 +176,14 @@ class _DeliveryContinerWidgetState extends State<DeliveryContinerWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Radio(
-            value: value,
-            groupValue: radioContinerIndes,
-            fillColor: MaterialStateColor.resolveWith((states) => Colors.red),
-            onChanged: (int? value) {
-              onChanged(value);
-            },
-          ),
+          // Radio(
+          //   value: value,
+          //   groupValue: radioContinerIndes,
+          //   fillColor: MaterialStateColor.resolveWith((states) => Colors.red),
+          //   onChanged: (int? value) {
+          //     onChanged(value);
+          //   },
+          // ),
           const SizedBox(
             width: 10,
           ),
@@ -214,7 +214,7 @@ class _DeliveryContinerWidgetState extends State<DeliveryContinerWidget> {
                 ),
                 Row(
                   children: [
-                    const Text('🇪🇬+02 '),
+                    const Text('🇪🇬+20 '),
                     TextUtils(
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
@@ -233,12 +233,14 @@ class _DeliveryContinerWidgetState extends State<DeliveryContinerWidget> {
                 const SizedBox(
                   height: 5,
                 ),
-                TextUtils(
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal,
-                  text: address,
-                  color: Colors.black,
-                  underLine: TextDecoration.none,
+                Container(width: MediaQuery.of(context).size.width*.8,
+                  child: TextUtils(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    text: address,
+                    color: Colors.black,
+                    underLine: TextDecoration.none,
+                  ),
                 ),
               ],
             ),
